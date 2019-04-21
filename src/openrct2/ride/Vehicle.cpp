@@ -865,7 +865,7 @@ static int32_t get_train_mass(rct_vehicle* first_vehicle)
  *
  *  rct2: 0x006BB9FF
  */
-static void vehicle_update_sound_params(rct_vehicle* vehicle)
+static void vehicle_update_sound_params(rct_vehicle* vehicle, rct_vehicle_sound_params gVehicleSoundParamsList[], rct_vehicle_sound_params* gVehicleSoundParamsListEnd)
 {
     if (gScreenFlags & SCREEN_FLAGS_SCENARIO_EDITOR)
         return;
@@ -1255,10 +1255,11 @@ void vehicle_sounds_update()
 
     vehicle_sounds_update_window_setup();
 
-    gVehicleSoundParamsListEnd = &gVehicleSoundParamsList[0];
+    rct_vehicle_sound_params gVehicleSoundParamsList[AUDIO_MAX_VEHICLE_SOUNDS];
+    rct_vehicle_sound_params* gVehicleSoundParamsListEnd = &gVehicleSoundParamsList[0];
     for (uint16_t i = gSpriteListHead[SPRITE_LIST_TRAIN]; i != SPRITE_INDEX_NULL; i = get_sprite(i)->vehicle.next)
     {
-        vehicle_update_sound_params(&get_sprite(i)->vehicle);
+        vehicle_update_sound_params(&get_sprite(i)->vehicle, gVehicleSoundParamsList, gVehicleSoundParamsListEnd);
     }
 
     // Stop all playing sounds that no longer have priority to play after vehicle_update_sound_params

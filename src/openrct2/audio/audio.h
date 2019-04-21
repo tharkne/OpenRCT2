@@ -162,8 +162,6 @@ extern rct_ride_music_params gRideMusicParamsList[6];
 extern rct_ride_music_params* gRideMusicParamsListEnd;
 
 extern rct_vehicle_sound gVehicleSoundList[AUDIO_MAX_VEHICLE_SOUNDS];
-extern rct_vehicle_sound_params gVehicleSoundParamsList[AUDIO_MAX_VEHICLE_SOUNDS];
-extern rct_vehicle_sound_params* gVehicleSoundParamsListEnd;
 
 /**
  * Deregisters the audio device.
