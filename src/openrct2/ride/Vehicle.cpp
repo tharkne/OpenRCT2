@@ -865,7 +865,7 @@ static int32_t get_train_mass(rct_vehicle* first_vehicle)
  *
  *  rct2: 0x006BB9FF
  */
-static void vehicle_update_sound_params(rct_vehicle* vehicle, rct_vehicle_sound_params VehicleSoundParamsList[], rct_vehicle_sound_params* VehicleSoundParamsListEnd)
+static void vehicle_update_sound_params(rct_vehicle* vehicle, rct_vehicle_sound_params vehicleSoundParamsList[], rct_vehicle_sound_params* vehicleSoundParamsListEnd)
 {
     if (gScreenFlags & SCREEN_FLAGS_SCENARIO_EDITOR)
         return;
@@ -911,23 +911,23 @@ static void vehicle_update_sound_params(rct_vehicle* vehicle, rct_vehicle_sound_
     uint16_t sound_priority = vehicle_get_sound_priority_factor(vehicle);
     rct_vehicle_sound_params* soundParam;
     // Find a sound param of lower priority to use
-    for (soundParam = &VehicleSoundParamsList[0];
-         soundParam < VehicleSoundParamsListEnd && sound_priority <= soundParam->priority; soundParam++)
+    for (soundParam = &vehicleSoundParamsList[0];
+         soundParam < vehicleSoundParamsListEnd && sound_priority <= soundParam->priority; soundParam++)
         ;
 
-    if (soundParam >= &VehicleSoundParamsList[std::size(VehicleSoundParamsList)])
+    if (soundParam >= &vehicleSoundParamsList[std::size(vehicleSoundParamsList)])
         return;
 
-    if (VehicleSoundParamsListEnd < &VehicleSoundParamsList[std::size(VehicleSoundParamsList)])
+    if (vehicleSoundParamsListEnd < &vehicleSoundParamsList[std::size(vehicleSoundParamsList)])
     {
-        VehicleSoundParamsListEnd++;
+        vehicleSoundParamsListEnd++;
     }
 
     // Shift all sound params down one if using a free space
-    if (soundParam != VehicleSoundParamsListEnd)
+    if (soundParam != vehicleSoundParamsListEnd)
     {
         std::memmove(
-            soundParam + 1, soundParam, ((VehicleSoundParamsListEnd - soundParam) - 1) * sizeof(rct_vehicle_sound_params));
+            soundParam + 1, soundParam, ((vehicleSoundParamsListEnd - soundParam) - 1) * sizeof(rct_vehicle_sound_params));
     }
 
     soundParam->priority = sound_priority;
@@ -1255,11 +1255,11 @@ void vehicle_sounds_update()
 
     vehicle_sounds_update_window_setup();
 
-    rct_vehicle_sound_params VehicleSoundParamsList[AUDIO_MAX_VEHICLE_SOUNDS];
-    rct_vehicle_sound_params* VehicleSoundParamsListEnd = &VehicleSoundParamsList[0];
+    rct_vehicle_sound_params vehicleSoundParamsList[AUDIO_MAX_VEHICLE_SOUNDS];
+    rct_vehicle_sound_params* vehicleSoundParamsListEnd = &vehicleSoundParamsList[0];
     for (uint16_t i = gSpriteListHead[SPRITE_LIST_TRAIN]; i != SPRITE_INDEX_NULL; i = get_sprite(i)->vehicle.next)
     {
-        vehicle_update_sound_params(&get_sprite(i)->vehicle, VehicleSoundParamsList, VehicleSoundParamsListEnd);
+        vehicle_update_sound_params(&get_sprite(i)->vehicle, vehicleSoundParamsList, vehicleSoundParamsListEnd);
     }
 
     // Stop all playing sounds that no longer have priority to play after vehicle_update_sound_params
@@ -1268,8 +1268,8 @@ void vehicle_sounds_update()
         if (vehicle_sound.id != SOUND_ID_NULL)
         {
             bool keepPlaying = false;
-            for (rct_vehicle_sound_params* vehicle_sound_params = &VehicleSoundParamsList[0];
-                 vehicle_sound_params != VehicleSoundParamsListEnd; vehicle_sound_params++)
+            for (rct_vehicle_sound_params* vehicle_sound_params = &vehicleSoundParamsList[0];
+                 vehicle_sound_params != vehicleSoundParamsListEnd; vehicle_sound_params++)
             {
                 if (vehicle_sound.id == vehicle_sound_params->id)
                 {
@@ -1293,8 +1293,8 @@ void vehicle_sounds_update()
         }
     }
 
-    for (rct_vehicle_sound_params* vehicleSoundParams = &VehicleSoundParamsList[0];
-         vehicleSoundParams < VehicleSoundParamsListEnd; vehicleSoundParams++)
+    for (rct_vehicle_sound_params* vehicleSoundParams = &vehicleSoundParamsList[0];
+         vehicleSoundParams < vehicleSoundParamsListEnd; vehicleSoundParams++)
     {
         uint8_t panVol = vehicle_sounds_update_get_pan_volume(vehicleSoundParams);
 
