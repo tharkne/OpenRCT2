@@ -104,6 +104,7 @@ The following people are not part of the development team, but have been contrib
 * (telk5093)
 * Ethan Smith (ethanhs) - Refactor MAX_PATH
 * Robert Lewicki (rlewicki)
+* Liam Parker (elInfidel)
 * Tyler Ruckinger (TyPR124)
 * Justin Gottula (jgottula)
 * Seongsik Park (pss9205)
@@ -126,6 +127,8 @@ The following people are not part of the development team, but have been contrib
 * Zetao Ye (ZbrettonYe)
 * Jordan Arevalos (Jarevalos2017)
 * Florian Will (w-flo)
+* Trevor Harkness (tharkne)
+* Steve Xu (stevexu-umich)
 
 ## Toolchain
 * (Balletie) - macOS
